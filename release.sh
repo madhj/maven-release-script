@@ -110,8 +110,8 @@ echo "Using maven command: $MVN"
 #########################################
 
 # If there are any uncommitted changes we must abort immediately
-if [ $(git status -s | wc -l) != "0" ] ; then
-	git status -s
+if [ $(git status -suno | wc -l) != "0" ] ; then
+	git status -suno
 	die_with "There are uncommitted changes, please commit or stash them to continue with the release:"
 else
 	echo "Good, no uncommitted changes found"
@@ -194,8 +194,8 @@ echo " Starting build and deploy"
 echo ""
 
 
-# build and deploy the release
-$MVN -DperformRelease=true clean deploy || rollback_and_die_with "Build/Deploy failure. Release failed."
+# build the release
+$MVN clean install || rollback_and_die_with "Build/Deploy failure. Release failed."
 
 # tag the release (N.B. should this be before perform the release?)
 git tag "v${RELEASE_VERSION}" || die_with "Failed to create tag ${RELEASE_VERSION}! Release has been deployed, however"
