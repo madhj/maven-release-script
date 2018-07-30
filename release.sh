@@ -210,5 +210,6 @@ git commit -a -m "Start next development version ${NEXT_VERSION}" || die_with "F
 
 echo $gitUrl
 git branch
+
 git push $gitUrl HEAD:master || die_with "Failed to push commits. Please do this manually"
 git push $gitUrl --tags || die_with "Failed to push tags. Please do this manually"
