@@ -195,7 +195,7 @@ echo ""
 
 
 # build the release
-#$MVN clean install || rollback_and_die_with "Build/Deploy failure. Release failed."
+$MVN clean install || rollback_and_die_with "Build/Deploy failure. Release failed."
 
 # tag the release (N.B. should this be before perform the release?)
 git tag "v${RELEASE_VERSION}" || die_with "Failed to create tag ${RELEASE_VERSION}! Release has been deployed, however"
